@@ -1,18 +1,225 @@
-.searchContainer {
-  position: relative;
+/* Reset base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
 }
 
+body, html, #root {
+  height: 100%;
+  background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+}
+
+.GenericContainer {
+  width: 100%;
+  max-width: 1100px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* SEARCH */
+.searchContainer {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.searchContainer input[type="text"] {
+  width: 100%;
+  padding: 15px 20px;
+  border: 2px solid #74ebd5;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  transition: border-color 0.3s ease;
+  outline: none;
+  box-shadow: inset 2px 2px 8px rgba(116,235,213,0.2);
+}
+
+.searchContainer input[type="text"]:focus {
+  border-color: #ACB6E5;
+  box-shadow: 0 0 10px #74ebd5;
+}
+
+/* SUGGESTIONS LIST */
 .suggestionsList {
   position: absolute;
-  top: 100%;
+  top: 60px;
   left: 0;
   right: 0;
-  background-color: white;
-  border: 1px solid #ccc;
-  list-style: none;
-  padding: 0;
-  z-index: 1000;
-  max-height: 200px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  max-height: 300px;
   overflow-y: auto;
-  margin-top: 4px;
+  z-index: 100;
+  padding: 0;
+  list-style: none;
 }
+
+.suggestionsList li {
+  padding: 12px 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  font-weight: 600;
+  transition: background-color 0.25s ease;
+}
+
+.suggestionsList li:hover {
+  background-color: #74ebd5;
+  color: white;
+  font-weight: 700;
+}
+
+/* PRODUCTS GRID */
+.productsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  gap: 25px;
+  padding-bottom: 10px;
+}
+
+.productCard {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(116,235,213,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 15px;
+}
+
+.productCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(116,235,213,0.35);
+}
+
+.productCard img {
+  width: 100%;
+  max-width: 220px;
+  height: 220px;
+  object-fit: contain;
+  border-radius: 14px;
+  margin-bottom: 18px;
+  filter: drop-shadow(2px 4px 6px rgba(116,235,213,0.2));
+}
+
+.productCard h2 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  text-align: center;
+  color: #3a3a3a;
+}
+
+.productCard p {
+  font-size: 0.9rem;
+  color: #666;
+  flex-grow: 1;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.productCard span {
+  font-weight: 700;
+  color: #2f8f8f;
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+}
+
+/* SELECTED PRODUCT */
+.selectedProductContainer {
+  background: #f5fafd;
+  border-radius: 24px;
+  box-shadow: 0 12px 40px rgba(116,235,213,0.3);
+  padding: 30px 40px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  animation: fadeInScale 0.5s ease forwards;
+}
+
+.selectedProductContainer h2 {
+  font-size: 2rem;
+  margin-bottom: 24px;
+  color: #2f8f8f;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.selectedProductContainer .productCard {
+  box-shadow: none;
+  background: transparent;
+  padding: 0;
+  cursor: default;
+  transform: none;
+}
+
+.selectedProductContainer img {
+  max-width: 350px;
+  height: 350px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  filter: drop-shadow(3px 6px 10px rgba(46,139,139,0.3));
+}
+
+.selectedProductContainer h2,
+.selectedProductContainer p,
+.selectedProductContainer span {
+  color: #134e4a;
+}
+
+.selectedProductContainer p {
+  font-size: 1.1rem;
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+
+.selectedProductContainer span {
+  font-size: 1.4rem;
+}
+
+/* Animazioni */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .GenericContainer {
+    padding: 20px 15px;
+  }
+
+  .selectedProductContainer {
+    padding: 20px 15px;
+  }
+
+  .productsContainer {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .selectedProductContainer img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
